@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace FragranceApi.DAL.Repositories
 {
-    internal class ICustomerRepository
+    public interface IProductRepository
     {
+        Task<List<Product>> GetAllAsync();
+        Task<Product?> GetByIdAsync(int id);
+        Task AddAsync(Product product);
+        void Update(Product product);
+        Task SaveChangesAsync();
     }
 }

@@ -6,7 +6,39 @@ using System.Threading.Tasks;
 
 namespace FragranceApi.DAL.Repositories
 {
-    internal class ICustomerRepository
+    public class ProductRepository : IProductRepository
     {
+        private readonly FragranceDbContext _context;
+        public ProductRepository(FragranceDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<List<Product>> GetAllAsync()
+        {
+            return await _context.Products
+                .ToListAsync();
+        }
+
+        public async Task<Product?> GetByIdAsync(int id)
+        {
+            return await _context.Products
+                .FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task AddAsync(Product product)
+        {
+            await _context.Products.AddAsync(product);
+        }
+
+        public void Update(Product product)
+        {
+            _context.Products.Update(product);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }
