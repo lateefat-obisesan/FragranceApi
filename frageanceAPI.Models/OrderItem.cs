@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FragranceApi.DAL
+namespace FragranceApi.Models
 {
-    internal class OrderItem
+    public class OrderItem
     {
         public int Id { get; set; }
         public int OrderId { get; set; }

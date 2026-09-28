@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FragranceApi.DAL
+namespace FragranceApi.Models
 {
     public class Customer
     {
