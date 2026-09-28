@@ -13,7 +13,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\frageanceAPI.Models\FragranceAPI.Models.csproj" />
     <ProjectReference Include="..\FragranceApi.BLL\FragranceApi.BLL.csproj" />
+    <ProjectReference Include="..\FragranceApi.DAL\FragranceApi.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DTOs\" />
+    <Folder Include="Mapping\" />
   </ItemGroup>
 
 </Project>
