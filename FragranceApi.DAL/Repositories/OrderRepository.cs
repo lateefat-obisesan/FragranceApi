@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace FragranceApi.DAL.Repositories
 {
-    internal class ICustomerRepository
+    public interface IOrderRepository
     {
+        Task<Order?> GetByIdAsync(int id);
+        Task AddAsync(Order order);
+        Task SaveChangesAsync();
     }
 }
