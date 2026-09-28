@@ -1,0 +1,6 @@
+@FragranceApi_HostAddress = http://localhost:5158
+
+GET {{FragranceApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
