@@ -2,5 +2,6 @@
   <Project Path="frageanceAPI.Models/FragranceAPI.Models.csproj" />
   <Project Path="FragranceApi.BLL/FragranceApi.BLL.csproj" />
   <Project Path="FragranceApi.DAL/FragranceApi.DAL.csproj" />
+  <Project Path="FragranceApi.DTOs/FragranceApi.DTOs.csproj" />
   <Project Path="FragranceApi/FragranceApi.csproj" />
 </Solution>
