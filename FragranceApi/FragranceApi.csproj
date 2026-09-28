@@ -19,7 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
+    <Folder Include="DTOs\Orders\" />
+    <Folder Include="DTOs\Products\" />
     <Folder Include="Mapping\" />
   </ItemGroup>
 
