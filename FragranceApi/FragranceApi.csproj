@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="DTOs\Orders\" />
-    <Folder Include="DTOs\Products\" />
     <Folder Include="Mapping\" />
   </ItemGroup>
 
