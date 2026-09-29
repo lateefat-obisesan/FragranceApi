@@ -40,5 +40,20 @@ namespace FragranceApi.Controllers
             return Ok(customer);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateCustomerDto dto)
+        {
+            var validationResult = await _createValidator.ValidateAsync(dto);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+
+            var customer = await _service.CreateAsync(dto);
+
+            return CreatedAtAction(
+                nameof(GetById),
+                new { id = customer.Id },
+                customer);
+        }
     }
 }
