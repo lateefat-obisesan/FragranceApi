@@ -5,6 +5,7 @@ using FragranceApi.DAL.Repositories;
 using FragranceApi.Mapping;
 using FragranceApi.Middleware;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace FragranceApi
 {
@@ -19,6 +20,19 @@ namespace FragranceApi
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+            options.UseSqlServer(
+                builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
+            builder.Services.AddScoped<ICustomerService, CustomerService>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
+
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
+
 
             var app = builder.Build();
 
