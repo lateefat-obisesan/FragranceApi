@@ -1,6 +1,13 @@
-﻿namespace FragranceApi.Validators
+﻿using FluentValidation;
+using FragranceApi.DTOs.Products;
+
+namespace FragranceApi.Validators
 {
-    public class UpdateProductValidator
+    public class UpdateProductValidator : AbstractValidator<UpdateProductDto>
     {
+        public UpdateProductValidator()
+        {
+            RuleFor(x => x.Stock)
+        }
     }
 }
