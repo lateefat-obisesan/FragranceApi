@@ -16,9 +16,20 @@ namespace FragranceApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] ProductQueryDto query)
+        [HttpGet]
+        public async Task<IActionResult> GetAll(
+            string? name, decimal? minPrice,  decimal? maxPrice, int? minStock, string? sortBy, bool sortDescending = false,
+            int pageNumber = 1, int pageSize = 10)
         {
-            return Ok(await _service.GetAllAsync(query));
+            return Ok(await _service.GetAllAsync(
+                name,
+                minPrice,
+                maxPrice,
+                minStock,
+                sortBy,
+                sortDescending,
+                pageNumber,
+                pageSize));
         }
 
         [HttpGet("{id}")]

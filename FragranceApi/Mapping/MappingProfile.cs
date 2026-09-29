@@ -18,8 +18,18 @@ namespace FragranceApi.Mapping
             CreateMap<CreateProductDto, Product>();
             CreateMap<UpdateProductDto, Product>();
 
-            CreateMap<OrderItem, OrderItemDto>();
-            CreateMap<Order, OrderDto>();
+            CreateMap<OrderItem, OrderItemDto>()
+                .ForMember(
+                    destination => destination.ProductName,
+                    options => options.MapFrom(source => source.Product.Name));
+
+            CreateMap<Order, OrderDto>()
+                .ForMember(
+                    destination => destination.CustomerName,
+                    options => options.MapFrom(source => source.Customer.Name))
+                .ForMember(
+                    destination => destination.Items,
+                    options => options.MapFrom(source => source.OrderItems));
         }
     }
 }
