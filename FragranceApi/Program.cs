@@ -5,7 +5,8 @@ using FragranceApi.DAL.Repositories;
 using FragranceApi.Mapping;
 using FragranceApi.Middleware;
 using Microsoft.EntityFrameworkCore;
-
+using FluentValidation;
+using FragranceApi.Validators;
 namespace FragranceApi
 {
     public class Program
@@ -17,6 +18,7 @@ namespace FragranceApi
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddValidatorsFromAssemblyContaining<CreateCustomerValidator>();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddDbContext<FragranceDbContext>(options =>
                  options.UseSqlServer(

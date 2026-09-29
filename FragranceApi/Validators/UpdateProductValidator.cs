@@ -8,6 +8,7 @@ namespace FragranceApi.Validators
         public UpdateProductValidator()
         {
             RuleFor(x => x.Stock)
+                .GreaterThanOrEqualTo(0);
         }
     }
 }
