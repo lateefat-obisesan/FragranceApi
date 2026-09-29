@@ -13,17 +13,22 @@ namespace FragranceApi.Controllers
         private readonly IValidator<CreateProductDto> _createValidator;
         private readonly IValidator<UpdateProductDto> _updateValidator;
 
-        public ProductsController(IProductService service)
+        public ProductsController(IProductService service,
+             IValidator<CreateProductDto> createValidator,
+             IValidator<UpdateProductDto> updateValidator)
         {
             _service = service;
+            _createValidator = createValidator;
+            _updateValidator = updateValidator;
         }
 
-        [HttpGet]
         [HttpGet]
         public async Task<IActionResult> GetAll(
             string? name, decimal? minPrice,  decimal? maxPrice, int? minStock, string? sortBy, bool sortDescending = false,
             int pageNumber = 1, int pageSize = 10)
         {
+            if (pageNumber < 1 || pageSize < 1 || pageSize <= 10)
+                return BadRequest("Invalid page number or page size.");
             return Ok(await _service.GetAllAsync(
                 name,
                 minPrice,
