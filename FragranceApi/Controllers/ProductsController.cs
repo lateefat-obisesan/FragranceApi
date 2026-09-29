@@ -1,6 +1,7 @@
 ﻿using FragranceApi.BLL.Interfaces;
 using FragranceApi.DTOs.Products;
 using Microsoft.AspNetCore.Mvc;
+using FluentValidation;
 
 namespace FragranceApi.Controllers
 {
@@ -9,6 +10,8 @@ namespace FragranceApi.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _service;
+        private readonly IValidator<CreateProductDto> _createValidator;
+        private readonly IValidator<UpdateProductDto> _updateValidator;
 
         public ProductsController(IProductService service)
         {
