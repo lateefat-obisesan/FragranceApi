@@ -29,6 +29,34 @@ namespace FragranceApi.DAL.Data
                     }
                 );
             }
+
+            if(!await context.Products.AnyAsync())
+            {
+                context.Products.AddRange(
+                     new Product
+                     {
+                         Name = "Vanilla Glow Candle",
+                         Description = "A warm vanilla scented candle.",
+                         Price = 43.99m,
+                         Stock = 20
+                     },
+                    new Product
+                    {
+                        Name = "Lavender Mist Candle",
+                        Description = "A relaxing lavender scented candle.",
+                        Price = 38.99m,
+                        Stock = 15
+                    },
+                    new Product
+                    {
+                        Name = "Citrus Bloom Candle",
+                        Description = "A fresh citrus scented candle.",
+                        Price = 27.99m,
+                        Stock = 25
+                    }
+                );
+            }
+            await context.SaveChangesAsync();
         }
     }
 }
