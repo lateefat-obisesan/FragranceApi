@@ -8,7 +8,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FragranceApi.DAL.Data
 {
-    internal class DbInitializer
+    public static class DbInitializer
     {
+        public static async Task SeedAsync(FragranceDbContext context)
+        {
+            if (!await context.Customers.AnyAsync())
+            {
+
+            }
+        }
     }
 }
