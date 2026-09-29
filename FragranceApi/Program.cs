@@ -18,7 +18,7 @@ namespace FragranceApi
             // Add services to the container.
 
             builder.Services.AddControllers();
-            builder.Services.AddValidatorsFromAssemblyContaining<CreateCustomerValidator>();
+            //builder.Services.AddValidatorsFromAssemblyContaining<CreateCustomerValidator>();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddDbContext<FragranceDbContext>(options =>
                  options.UseSqlServer(
