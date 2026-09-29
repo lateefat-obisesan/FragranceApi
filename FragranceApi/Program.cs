@@ -1,3 +1,10 @@
+using FragranceApi.BLL.Interfaces;
+using FragranceApi.BLL.Services;
+using FragranceApi.DAL.Data;
+using FragranceApi.DAL.Repositories;
+using FragranceApi.Mapping;
+using FragranceApi.Middleware;
+using Microsoft.EntityFrameworkCore;
 
 namespace FragranceApi
 {
