@@ -14,7 +14,20 @@ namespace FragranceApi.DAL.Data
         {
             if (!await context.Customers.AnyAsync())
             {
-
+                context.Customers.AddRange(
+                    new Customer
+                    {
+                        Name = "Sade Johnson",
+                        Email = "sade@example.com",
+                        Phone = "204-555-1001"
+                    },
+                    new Customer
+                    {
+                        Name = "Keji Williams",
+                        Email = "keji@example.com",
+                        Phone = "204-555-1002"
+                    }
+                );
             }
         }
     }
