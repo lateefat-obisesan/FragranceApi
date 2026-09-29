@@ -18,8 +18,4 @@
     <ProjectReference Include="..\FragranceApi.DAL\FragranceApi.DAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
