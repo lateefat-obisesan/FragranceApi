@@ -22,6 +22,23 @@ namespace FragranceApi.Controllers
             _createValidator = createValidator;
             _updateValidator = updateValidator;
         }
-    }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            return Ok(await _service.GetAllAsync());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var customer = await _service.GetByIdAsync(id);
+
+            if (customer == null)
+                return NotFound();
+
+            return Ok(customer);
+        }
+
+    }
 }
