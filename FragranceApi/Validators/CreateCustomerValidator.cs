@@ -10,7 +10,7 @@ namespace FragranceApi.Validators
         {
             RuleFor(x => x.Name)
                 .NotEmpty()
-                .MaximumLength(100);
+                .MaximumLength(50);
 
             RuleFor(x => x.Email)
                 .NotEmpty()
