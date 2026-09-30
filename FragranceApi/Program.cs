@@ -6,7 +6,6 @@ using FragranceApi.Mapping;
 using FragranceApi.Middleware;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
-using Microsoft.OpenApi.Models;
 using FragranceApi.Validators;
 namespace FragranceApi
 {
@@ -35,16 +34,6 @@ namespace FragranceApi
 
             builder.Services.AddAutoMapper(typeof(MappingProfile)); //add to do (Install-Package AutoMapper.Extensions.Microsoft.DependencyInjection) for you to work.
             builder.Services.AddEndpointsApiExplorer();
-
-            builder.Services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "Fragrance API",
-                    Version = "v1",
-                    Description = "API for managing customers, fragrance products, and orders."
-                });
-            });
 
             var app = builder.Build();
 
