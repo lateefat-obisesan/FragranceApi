@@ -18,7 +18,7 @@ namespace FragranceApi
             // Add services to the container.
 
             builder.Services.AddControllers();
-            //builder.Services.AddValidatorsFromAssemblyContaining<CreateCustomerValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<CreateCustomerValidator>();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddDbContext<FragranceDbContext>(options =>
                  options.UseSqlServer(
@@ -33,7 +33,17 @@ namespace FragranceApi
             builder.Services.AddScoped<IOrderService, OrderService>();
 
             builder.Services.AddAutoMapper(typeof(MappingProfile)); //add to do (Install-Package AutoMapper.Extensions.Microsoft.DependencyInjection) for you to work.
+            builder.Services.AddEndpointsApiExplorer();
 
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Fragrance API",
+                    Version = "v1",
+                    Description = "API for managing customers, fragrance products, and orders."
+                });
+            });
 
             var app = builder.Build();
 
