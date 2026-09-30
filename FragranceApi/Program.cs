@@ -1,4 +1,3 @@
-
 using FragranceApi.BLL.Interfaces;
 using FragranceApi.BLL.Services;
 using FragranceApi.DAL.Data;
@@ -17,6 +16,7 @@ namespace FragranceApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Add services to the container
             builder.Services.AddControllers();
 
             builder.Services.AddValidatorsFromAssemblyContaining<CreateCustomerValidator>();
@@ -25,10 +25,12 @@ namespace FragranceApi
                 options.UseSqlServer(
                     builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            // Repository Registrations
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
+            // Service Registrations
             builder.Services.AddScoped<ICustomerService, CustomerService>();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
@@ -39,6 +41,10 @@ namespace FragranceApi
 
             var app = builder.Build();
 
+            // Register global exception handling right after building the app
+            app.UseMiddleware<ExceptionMiddleware>();
+
+            // Database migration and seeding
             using (var scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<FragranceDbContext>();
@@ -47,6 +53,7 @@ namespace FragranceApi
                 await DbInitializer.SeedAsync(db);
             }
 
+            // Configure HTTP request pipeline
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
