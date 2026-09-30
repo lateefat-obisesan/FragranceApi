@@ -7,6 +7,8 @@ using FragranceApi.Middleware;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using FragranceApi.Validators;
+using System.Reflection;
+
 namespace FragranceApi
 {
     public class Program
@@ -32,8 +34,9 @@ namespace FragranceApi
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
 
-            builder.Services.AddAutoMapper(typeof(MappingProfile)); //add to do (Install-Package AutoMapper.Extensions.Microsoft.DependencyInjection) for you to work.
-            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+            builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
@@ -46,18 +49,31 @@ namespace FragranceApi
                 await DbInitializer.SeedAsync(db);
             }
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.MapOpenApi();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
+            app.UseMiddleware<ExceptionMiddleware>();
 
-            app.MapControllers();
+            try
+            {
+                app.MapControllers();
+            }
+            catch (ReflectionTypeLoadException ex)
+            {
+                foreach (var error in ex.LoaderExceptions)
+                {
+                    Console.WriteLine(error?.Message);
+                }
+
+                throw;
+            }
 
             app.Run();
         }
