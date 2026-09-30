@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FragranceApi.Middleware
 {
@@ -23,44 +24,49 @@ namespace FragranceApi.Middleware
             }
             catch (KeyNotFoundException ex)
             {
-                context.Response.StatusCode = 404;
-                await WriteError(context, ex.Message);
+                await WriteError(
+                    context,
+                    404,
+                    "Not Found",
+                    ex.Message);
             }
             catch (InvalidOperationException ex)
             {
-                context.Response.StatusCode = 409;
-                await WriteError(context, ex.Message);
+                await WriteError(
+                    context,
+                    409,
+                    "Conflict",
+                    ex.Message);
             }
-
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An unexpected error occurred.");
 
-                context.Response.StatusCode = 500;
                 await WriteError(
                     context,
+                    500,
+                    "Internal Server Error",
                     "An unexpected error occurred.");
             }
         }
 
         private static async Task WriteError(
-          HttpContext context,
-          string message)
+            HttpContext context,
+            int statusCode,
+            string title,
+            string detail)
         {
-            context.Response.ContentType = "application/problem+json";
+            context.Response.StatusCode = statusCode;
 
-            var problem = new
+            var problem = new ProblemDetails
             {
-                type = "about:blank",
-                title = "An error occurred",
-                status = context.Response.StatusCode,
-                detail = message
+                Status = statusCode,
+                Title = title,
+                Detail = detail,
+                Type = "about:blank"
             };
 
-            await context.Response.WriteAsync(
-                JsonSerializer.Serialize(problem));
+            await context.Response.WriteAsJsonAsync(problem);
         }
     }
 }
-
-
