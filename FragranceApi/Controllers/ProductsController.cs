@@ -27,7 +27,7 @@ namespace FragranceApi.Controllers
             string? name, decimal? minPrice,  decimal? maxPrice, int? minStock, string? sortBy, bool sortDescending = false,
             int pageNumber = 1, int pageSize = 10)
         {
-            if (pageNumber < 1 || pageSize < 1 || pageSize <= 10)
+            if (pageNumber < 1 || pageSize < 1 || pageSize > 50)
                 return BadRequest("Invalid page number or page size.");
             return Ok(await _service.GetAllAsync(
                 name,

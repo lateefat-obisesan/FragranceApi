@@ -4,9 +4,9 @@ using FragranceApi.DAL.Data;
 using FragranceApi.DAL.Repositories;
 using FragranceApi.Mapping;
 using FragranceApi.Middleware;
-using Microsoft.EntityFrameworkCore;
-using FluentValidation;
 using FragranceApi.Validators;
+using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 
 namespace FragranceApi
 {
@@ -16,14 +16,13 @@ namespace FragranceApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.AddControllers();
-            //builder.Services.AddValidatorsFromAssemblyContaining<CreateCustomerValidator>();
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
+            builder.Services.AddValidatorsFromAssemblyContaining<CreateCustomerValidator>();
+
             builder.Services.AddDbContext<FragranceDbContext>(options =>
-                 options.UseSqlServer(
-                     builder.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -44,7 +43,6 @@ namespace FragranceApi
                 var db = scope.ServiceProvider.GetRequiredService<FragranceDbContext>();
 
                 await db.Database.MigrateAsync();
-
                 await DbInitializer.SeedAsync(db);
             }
 
@@ -60,8 +58,7 @@ namespace FragranceApi
 
             app.UseMiddleware<ExceptionMiddleware>();
 
-            //app.MapControllers();
-            app.MapGet("/", () => "Fragrance API is running");
+            app.MapControllers();
 
             app.Run();
         }
