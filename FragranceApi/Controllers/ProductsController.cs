@@ -1,4 +1,5 @@
-﻿using FragranceApi.BLL.Interfaces;
+﻿
+using FragranceApi.BLL.Interfaces;
 using FragranceApi.DTOs.Products;
 using Microsoft.AspNetCore.Mvc;
 using FluentValidation;

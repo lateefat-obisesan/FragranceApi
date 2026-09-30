@@ -1,3 +1,4 @@
+
 using FragranceApi.BLL.Interfaces;
 using FragranceApi.BLL.Services;
 using FragranceApi.DAL.Data;
@@ -55,8 +56,6 @@ namespace FragranceApi
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
-            app.UseMiddleware<ExceptionMiddleware>();
 
             app.MapControllers();
 
