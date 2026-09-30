@@ -6,6 +6,7 @@ using FragranceApi.Mapping;
 using FragranceApi.Middleware;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
+using Microsoft.OpenApi.Models;
 using FragranceApi.Validators;
 namespace FragranceApi
 {

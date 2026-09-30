@@ -40,28 +40,6 @@ namespace FragranceApi.Controllers
                 pageSize));
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var product = await _service.GetByIdAsync(id);
-
-            if (product == null)
-                return NotFound();
-
-            return Ok(product);
-        }
-
-        //[HttpPost]
-        //public async Task<IActionResult> Create(CreateProductDto dto)
-        //{
-        //    var product = await _service.CreateAsync(dto);
-
-        //    return CreatedAtAction(
-        //        nameof(GetById),
-        //        new { id = product.Id },
-        //        product);
-        //}
-
         [HttpPost]
         public async Task<IActionResult> Create(CreateProductDto dto)
         {
@@ -73,24 +51,6 @@ namespace FragranceApi.Controllers
             var product = await _service.CreateAsync(dto);
 
             return Created("/api/products", product);
-        }
-
-        [HttpPatch("{id}/stock")]
-        public async Task<IActionResult> UpdateStock(
-                   int id,
-                   UpdateProductDto dto)
-        {
-            var validationResult = await _updateValidator.ValidateAsync(dto);
-
-            if (!validationResult.IsValid)
-                return BadRequest(validationResult.Errors);
-
-            var updated = await _service.UpdateStockAsync(id, dto);
-
-            if (!updated)
-                return NotFound();
-
-            return NoContent();
         }
     }
 }
