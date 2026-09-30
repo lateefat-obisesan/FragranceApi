@@ -1,6 +1,7 @@
 ﻿using FragranceApi.BLL.Interfaces;
 using FragranceApi.DTOs.Orders;
 using Microsoft.AspNetCore.Mvc;
+using FluentValidation;
 
 namespace FragranceApi.Controllers
 {
@@ -9,12 +10,15 @@ namespace FragranceApi.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly IOrderService _service;
+        private readonly IValidator<CreateOrderDto> _validator;
 
-        public OrdersController(IOrderService service)
+        public OrdersController(
+          IOrderService service,
+          IValidator<CreateOrderDto> validator)
         {
             _service = service;
+            _validator = validator;
         }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {

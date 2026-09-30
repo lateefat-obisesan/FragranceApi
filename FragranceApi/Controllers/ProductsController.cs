@@ -51,22 +51,40 @@ namespace FragranceApi.Controllers
             return Ok(product);
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> Create(CreateProductDto dto)
+        //{
+        //    var product = await _service.CreateAsync(dto);
+
+        //    return CreatedAtAction(
+        //        nameof(GetById),
+        //        new { id = product.Id },
+        //        product);
+        //}
+
         [HttpPost]
         public async Task<IActionResult> Create(CreateProductDto dto)
         {
+            var validationResult = await _createValidator.ValidateAsync(dto);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+
             var product = await _service.CreateAsync(dto);
 
-            return CreatedAtAction(
-                nameof(GetById),
-                new { id = product.Id },
-                product);
+            return Created("/api/products", product);
         }
 
         [HttpPatch("{id}/stock")]
         public async Task<IActionResult> UpdateStock(
-            int id,
-            UpdateProductDto dto)
+                   int id,
+                   UpdateProductDto dto)
         {
+            var validationResult = await _updateValidator.ValidateAsync(dto);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+
             var updated = await _service.UpdateStockAsync(id, dto);
 
             if (!updated)
