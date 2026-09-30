@@ -29,10 +29,14 @@ namespace FragranceApi.Controllers
 
             return Ok(order);
         }
-
         [HttpPost]
         public async Task<IActionResult> Create(CreateOrderDto dto)
         {
+            var validationResult = await _validator.ValidateAsync(dto);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+
             var order = await _service.CreateAsync(dto);
 
             return CreatedAtAction(
